@@ -3,8 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/TP_PROGS/Projects/Be_tifr/MobInferenceApp/MobInferenceApp/uploadTest3/app/src/main/res/layout/activity_main.xml" value="0.33" />
-        <entry key="..\:/TP_PROGS/Projects/Be_tifr/MobInferenceApp/MobInferenceApp/uploadTest3/app/src/main/res/layout/activity_main2.xml" value="0.18" />
+        <entry key="..\:/TP_PROGS/Projects/Be_tifr/MobInferenceApp/MobInferenceApp/uploadTest3/app/src/main/res/drawable/gradient_bg.xml" value="0.19375" />
+        <entry key="..\:/TP_PROGS/Projects/Be_tifr/MobInferenceApp/MobInferenceApp/uploadTest3/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/TP_PROGS/Projects/Be_tifr/MobInferenceApp/MobInferenceApp/uploadTest3/app/src/main/res/layout/activity_main2.xml" value="0.33" />
+        <entry key="..\:/TP_PROGS/Projects/Be_tifr/MobInferenceApp/MobInferenceApp/uploadTest3/app/src/main/res/layout/activity_main4.xml" value="0.25" />
+        <entry key="..\:/TP_PROGS/Projects/Be_tifr/MobInferenceApp/MobInferenceApp/uploadTest3/app/src/main/res/layout/content_main.xml" value="0.1734375" />
       </map>
     </option>
   </component>

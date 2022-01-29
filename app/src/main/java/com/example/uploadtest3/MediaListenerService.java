@@ -13,6 +13,14 @@ import android.util.Log;
 import android.widget.Toast;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 import net.gotev.uploadservice.protocols.multipart.MultipartUploadRequest;
 
@@ -35,9 +43,11 @@ public class MediaListenerService extends Service {
         else
         {
             String syncPath = "";
+            String movePath = "";
             Log.d("Service","not null");
             syncPath = (String) extras.get("pathh");
-            startWatching(syncPath);
+            movePath = (String) extras.get("movePathhh");
+            startWatching(syncPath, movePath);
         }
         return Service.START_NOT_STICKY;
     }
@@ -56,13 +66,14 @@ public class MediaListenerService extends Service {
 //        startWatching(syncPath);
     }
 
-    private void startWatching(String pathToWatch2) {
+    private void startWatching(String pathToWatch2, String pathToMove2) {
 
         //The desired path to watch or monitor
         //E.g Camera folder
 //        final String pathToWatch = android.os.Environment.getExternalStorageDirectory().toString() + "/Documents";
 //        final String pathToWatch = "content://com.android.externalstorage.documents/tree/parallel%3ADocuments";
         final String pathToWatch = android.os.Environment.getExternalStorageDirectory().toString() + "/" + pathToWatch2;
+        final String pathToMove = android.os.Environment.getExternalStorageDirectory().toString() + "/" + pathToMove2;
         System.out.println("pathhhhhh: "+ pathToWatch);
         Toast.makeText(this, "Now watching for new files at " + pathToWatch, Toast.LENGTH_LONG).show();
 
@@ -95,18 +106,62 @@ public class MediaListenerService extends Service {
                         public void run() {
 //                            Toast.makeText(getBaseContext(), file + " was saved!", Toast.LENGTH_LONG).show();
                             System.out.println("randiMain"+ file +" "+ event+" "+FileObserver.CREATE + "Close write");
-                            MultipartUploadRequest mu = new MultipartUploadRequest(getApplicationContext(),"http://103.197.221.163:3478/upload/multipart");
 
+                            MultipartUploadRequest mu = new MultipartUploadRequest(getApplicationContext(),"http://103.197.221.163:3478/upload/multipart");
 //                            MultipartUploadRequest mu = new MultipartUploadRequest(getApplicationContext(),"https://enaiug4935taq.x.pipedream.net");
                             mu.setMethod("POST");
+                            mu.setAutoDeleteFilesAfterSuccessfulUpload(true);
                             try {
-                                mu.addFileToUpload(pathToWatch + "/" + file, "myFile");
+                                mu.addFileToUpload(pathToWatch + "/" + file, "myFile", file);
                             } catch (FileNotFoundException e) {
                                 System.out.println("In catch idfk");
                                 e.printStackTrace();
                             }
                             mu.startUpload();
-                            System.out.println("Uploaded????");
+                            System.out.println("Uploaded!!!!!!!!!");
+
+                            System.out.println("Starting Copying");
+                            // the file to be moved or copied
+                            File sourceFile = new File (pathToWatch + "/" + file);
+
+                            // make sure your target location folder exists!
+                            String currentTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
+                            currentTime = currentTime.replaceAll(":",".");
+                            String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+//                            String tmpTime =  Calendar.getInstance().getTime().toString();
+                            String tmpTime = currentDate + "__" + currentTime + "__";
+                            File targetFile = new File (pathToMove + "/" + tmpTime + file );
+
+                            try
+                            {
+//                                if (sourceFile.renameTo(targetFile))
+//                                {
+//                                    System.out.println("Move Doneeeeeeee!!");
+//                                }
+//                                else
+//                                {
+//                                    System.out.println("Move Failed bruh!!");
+//                                }
+                                InputStream in = new FileInputStream(sourceFile);
+                                OutputStream out = new FileOutputStream(targetFile);
+
+                                // Copy the bits from instream to outstream
+                                byte[] buf = new byte[1024];
+                                int len;
+
+                                while ((len = in.read(buf)) > 0) {
+                                    out.write(buf, 0, len);
+                                }
+
+                                in.close();
+                                out.close();
+                            }
+                            catch (Exception e)
+                            {
+                                e.printStackTrace();
+                            }
+
+
 //                            MultipartUploadRequest(this, serverUrl = "http://103.197.221.163:3478/upload/multipart")
 //                                    .setMethod("POST")
 //                                    .addFileToUpload(

@@ -4,87 +4,99 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/gradient_bg"
     tools:context=".MainActivity">
 
 
-    <Button
-        android:id="@+id/browse"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="225dp"
-        android:layout_marginTop="27dp"
-        android:layout_marginEnd="45dp"
-        android:layout_marginBottom="414dp"
-        android:text="Single File Upload"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
-    <Button
-        android:id="@+id/browseDirPath"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="271dp"
-        android:layout_marginTop="27dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="350dp"
-        android:text="Browse"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <Button
-        android:id="@+id/browseDir"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="271dp"
-        android:layout_marginTop="27dp"
-        android:layout_marginEnd="38dp"
-        android:layout_marginBottom="286dp"
-        android:text="Start Sync"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.25"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="1.0" />
-
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="309dp"
-        android:layout_height="238dp"
+        android:layout_width="409dp"
+        android:layout_height="291dp"
         android:layout_marginStart="51dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="51dp"
         android:layout_marginBottom="489dp"
-
+        android:contentDescription="image view"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHeight_percent=".5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/ves_tifr_logo" />
+        app:layout_constraintVertical_bias="0.197"
+        app:layout_constraintWidth_percent=".5"
+        app:srcCompat="@drawable/Untitled_design_1" />
 
-    <TextView
-        android:id="@+id/path"
-        android:layout_width="213dp"
+    <Button
+        android:id="@+id/button"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="34dp"
-        android:layout_marginTop="104dp"
-        android:layout_marginEnd="172dp"
-        android:layout_marginBottom="366dp"
-        android:text="Select a Path to continue"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/browseDirPath"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="8dp"
+        android:text="01"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/button2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.666" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/imageView"/>
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="8dp"
+        android:text="02"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/button3"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/imageView"/>
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="8dp"
+        android:text="03"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/button4"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/imageView"/>
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="8dp"
+        android:text="04"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/button5"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button3"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/imageView"/>
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="8dp"
+        android:text="05"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button4"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/imageView"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
