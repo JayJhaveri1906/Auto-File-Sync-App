@@ -120,17 +120,17 @@ public class MainActivity3 extends AppCompatActivity
         }
 
 
-        browse = findViewById(R.id.browse);
-        browse.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-//                Toast.makeText(getApplicationContext(), "lmao", Toast.LENGTH_SHORT).show();
-                Intent secPg = new Intent(getApplicationContext(), MainActivity2.class);
-                startActivity(secPg);
-            }
-        });
+//        browse = findViewById(R.id.browse);
+//        browse.setOnClickListener(new View.OnClickListener()
+//        {
+//            @Override
+//            public void onClick(View view)
+//            {
+////                Toast.makeText(getApplicationContext(), "lmao", Toast.LENGTH_SHORT).show();
+//                Intent secPg = new Intent(getApplicationContext(), MainActivity2.class);
+//                startActivity(secPg);
+//            }
+//        });
 
         Button browseDirPath = findViewById(R.id.browseDirPath);
         browseDirPath.setOnClickListener(new View.OnClickListener()

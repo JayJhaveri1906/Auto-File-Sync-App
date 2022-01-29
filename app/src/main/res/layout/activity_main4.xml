@@ -7,108 +7,89 @@
     android:background="@drawable/gradient_bg"
     tools:context=".MainActivity">
 
-
-    <Button
-        android:id="@+id/browse"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="225dp"
-        android:layout_marginTop="27dp"
-        android:layout_marginEnd="45dp"
-        android:layout_marginBottom="414dp"
-        android:text="Single File Upload"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
-    <Button
-        android:id="@+id/browseDir"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="271dp"
-        android:layout_marginEnd="38dp"
-        android:layout_marginBottom="228dp"
-        android:text="Start Sync"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.083"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/path"
-        android:layout_width="213dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="34dp"
-        android:layout_marginTop="104dp"
-        android:layout_marginEnd="172dp"
-        android:layout_marginBottom="366dp"
-        android:text="Select a Path for Syncing"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/browseDirPath"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <Button
-        android:id="@+id/browseDirPath"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="271dp"
-        android:layout_marginTop="27dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="350dp"
-        android:text="Browse"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <TextView
-        android:id="@+id/path2"
-        android:layout_width="213dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="34dp"
-        android:layout_marginEnd="172dp"
-        android:layout_marginBottom="308dp"
-        android:text="Select a Path for Moving"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/browseDirPath"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/browseDirPath2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="271dp"
-        android:layout_marginTop="74dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="292dp"
-        android:text="Browse"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/browse" />
-
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="409dp"
         android:layout_height="291dp"
+        android:layout_marginStart="51dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="51dp"
+        android:layout_marginBottom="489dp"
         android:contentDescription="image view"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent=".5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_bias="0.52"
         app:layout_constraintWidth_percent=".5"
-        app:srcCompat="@drawable/Untitled_design_1" />
+        app:srcCompat="@drawable/final_logo" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/browseDir"
+        android:layout_width="240dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="142dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="143dp"
+        android:background="@drawable/start_sync"
+        android:text="Start Sync"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/path2" />
+
+    <TextView
+        android:id="@+id/path"
+        android:layout_width="239dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/text_box_border"
+        android:text="Select a Path for Syncing"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/browseDirPath"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/shape2"
+        android:text="Browse"
+        android:textColor="#000"
+        app:layout_constraintStart_toEndOf="@+id/path"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <TextView
+        android:id="@+id/path2"
+        android:layout_width="240dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/text_box_border"
+        android:text="Select a Path for Moving"
+        android:gravity="center"
+
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/path" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/browseDirPath2"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/shape2"
+        android:textColor="#000"
+        android:text="Browse2"
+        app:layout_constraintStart_toEndOf="@+id/path2"
+        app:layout_constraintTop_toBottomOf="@+id/browseDirPath" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

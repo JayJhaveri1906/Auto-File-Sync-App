@@ -53,7 +53,7 @@ class MainActivity2 : AppCompatActivity() {
 
 
     fun onFilePicked(filePath: String) {
-        println("path randi$filePath");
+        println("path $filePath");
         MultipartUploadRequest(this, serverUrl = "http://103.197.221.163:3478/upload/multipart")
                 .setMethod("POST")
                 .addFileToUpload(

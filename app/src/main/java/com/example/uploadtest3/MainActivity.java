@@ -28,11 +28,48 @@ import java.util.logging.Logger;
 
 public class MainActivity extends AppCompatActivity
 {
+    Button sync;
+    Button file;
+    Button credits;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        sync = findViewById(R.id.button);
+        sync.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+//                Toast.makeText(getApplicationContext(), "lmao", Toast.LENGTH_SHORT).show();
+                Intent secPg = new Intent(getApplicationContext(), MainActivity3.class);
+                startActivity(secPg);
+            }
+        });
+        file = findViewById(R.id.button2);
+        file.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+//                Toast.makeText(getApplicationContext(), "lmao", Toast.LENGTH_SHORT).show();
+                Intent secPg = new Intent(getApplicationContext(), MainActivity2.class);
+                startActivity(secPg);
+            }
+        });
+        sync = findViewById(R.id.button3);
+        sync.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+//                Toast.makeText(getApplicationContext(), "lmao", Toast.LENGTH_SHORT).show();
+                Intent secPg = new Intent(getApplicationContext(), MainActivity4.class);
+                startActivity(secPg);
+            }
+        });
     }
 
 }

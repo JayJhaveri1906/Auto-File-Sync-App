@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:background="@drawable/gradient_bg"
+tools:context=".MainActivity4">
+
+
+    <ImageView
+    android:id="@+id/imageView"
+    android:layout_width="409dp"
+    android:layout_height="291dp"
+    android:layout_marginStart="51dp"
+    android:layout_marginTop="32dp"
+    android:layout_marginEnd="51dp"
+    android:layout_marginBottom="489dp"
+    android:contentDescription="image view"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHeight_percent=".5"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.52"
+    app:layout_constraintWidth_percent=".5"
+    app:srcCompat="@drawable/final_logo" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="170dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="25dp"
+        android:gravity="center"
+        android:text="@string/developer"
+        android:textColor="@color/black"
+
+        android:textSize="28sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="170dp"
+        android:layout_height="250dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/text_box_border"
+        android:paddingLeft="12dp"
+        android:text="\nJay Jhaveri\n\nPrem Chhabria\n\nAbhay Gupta\n\nNeeraj Ochani"
+        android:textColor="@color/black"
+        android:textSize="23sp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView1" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="170dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="24dp"
+        android:gravity="center"
+        android:text="@string/teachers"
+        android:textColor="@color/black"
+
+        android:textSize="28sp"
+        app:layout_constraintStart_toEndOf="@+id/textView1"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="170dp"
+        android:layout_height="250dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/text_box_border"
+        android:paddingLeft="12dp"
+        android:text="\nProf. Shashi Dugad\n\nDr. Sharmila Sengupta\n\nProf. Sunita Suralkar"
+        android:textColor="@color/black"
+        android:textSize="23sp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
