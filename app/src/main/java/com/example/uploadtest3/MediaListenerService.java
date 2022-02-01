@@ -28,6 +28,8 @@ public class MediaListenerService extends Service {
 
     public static FileObserver observer;
 //    public static String syncPath = "";
+    String lati = "19.045959";
+    String longi = "72.890080";
 
     public MediaListenerService() {
     }
@@ -104,15 +106,19 @@ public class MediaListenerService extends Service {
                     new Handler(Looper.getMainLooper()).post(new Runnable() {
                         @Override
                         public void run() {
+
+
 //                            Toast.makeText(getBaseContext(), file + " was saved!", Toast.LENGTH_LONG).show();
                             System.out.println("randiMain"+ file +" "+ event+" "+FileObserver.CREATE + "Close write");
 
-//                            MultipartUploadRequest mu = new MultipartUploadRequest(getApplicationContext(),"http://103.197.221.163:3478/upload/multipart");
-                            MultipartUploadRequest mu = new MultipartUploadRequest(getApplicationContext(),"https://enaiug4935taq.x.pipedream.net");
+                            MultipartUploadRequest mu = new MultipartUploadRequest(getApplicationContext(),"http://103.197.221.163:3478/upload/multipart");
+//                            MultipartUploadRequest mu = new MultipartUploadRequest(getApplicationContext(),"https://enaiug4935taq.x.pipedream.net");
                             mu.setMethod("POST");
                             mu.setAutoDeleteFilesAfterSuccessfulUpload(true);
+//                            mu.addFileToUpload("","","","");
                             try {
-                                mu.addFileToUpload(pathToWatch + "/" + file, "myFile", file);
+//                                mu.addFileToUpload(pathToWatch + "/" + file, "myFile", lat+"_"+longi+"_"+file);
+                                mu.addFileToUpload(pathToWatch + "/" + file, lati+"_"+longi, file);
                             } catch (FileNotFoundException e) {
                                 System.out.println("In catch idfk");
                                 e.printStackTrace();

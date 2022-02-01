@@ -87,7 +87,7 @@
         android:layout_marginTop="25dp"
         android:background="@drawable/shape2"
         android:textColor="#000"
-        android:text="Browse2"
+        android:text="Browse"
         app:layout_constraintStart_toEndOf="@+id/path2"
         app:layout_constraintTop_toBottomOf="@+id/browseDirPath" />
 

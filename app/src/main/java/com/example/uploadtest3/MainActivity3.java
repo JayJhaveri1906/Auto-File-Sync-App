@@ -1,11 +1,13 @@
 package com.example.uploadtest3;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -18,9 +20,27 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+//import android.location.Location;
+//import android.location.LocationListener;
+//import android.location.LocationManager;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnCompleteListener;
+
+import android.os.Looper;
+
+import com.google.android.gms.tasks.Task;
+
+import android.location.Location;
+import android.location.LocationManager;
 
 public class MainActivity3 extends AppCompatActivity
 {
+
+    FusedLocationProviderClient mFusedLocationClient;
 
     Button browse;
     SharedPreferences sharedPref;
@@ -28,8 +48,12 @@ public class MainActivity3 extends AppCompatActivity
 
     private static final int RQS_OPEN_DOCUMENT_TREE = 45;
     private static final int RQS_MOVE_DOCUMENT_TREE = 69;
-    private static final int MNG_CODE = 501;
 
+
+    //    protected LocationManager locationManager;
+//    protected LocationListener locationListener;
+    protected String latitude, longitude;
+    protected boolean gps_enabled, network_enabled;
 
     public String syncPath = "";
     //    public String syncPath = sharedPref.getString("syncPath", "");
@@ -44,34 +68,6 @@ public class MainActivity3 extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main4);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            if (!Environment.isExternalStorageManager()) {
-                try {
-                    Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION,
-                            Uri.parse("package:" + "com.example.uploadtest3"));
-                    startActivityForResult(intent, MNG_CODE);
-                } catch (Exception e) {
-                    System.out.println(e);
-                    Intent intent = new Intent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
-                    startActivityForResult(intent, MNG_CODE);
-                }
-            }
-        }
-
-
-        int MyVersion = Build.VERSION.SDK_INT;
-        if (MyVersion > Build.VERSION_CODES.LOLLIPOP_MR1) {
-            if (!checkIfAlreadyhavePermission()) {
-                requestForSpecificPermission();
-            }
-        }
-//        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1) {
-//            askForPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, 1);
-//            askForPermission(Manifest.permission.READ_EXTERNAL_STORAGE, 1);
-//            askForPermission(Manifest.permission.MANAGE_EXTERNAL_STORAGE, 1);
-//            askForPermission(Manifest.permission.RECEIVE_BOOT_COMPLETED, 1);
-//        }
-
 
         // Main Pgm
 
@@ -79,41 +75,33 @@ public class MainActivity3 extends AppCompatActivity
 
         // sync path
         // SHARED Path for next sessions
-        sharedPref= getSharedPreferences("mypref", 0);
-        editor= sharedPref.edit();
-        try
-        {
+        sharedPref = getSharedPreferences("mypref", 0);
+        editor = sharedPref.edit();
+        try {
             String tmp = sharedPref.getString("syncPath", "");
             syncPath = tmp;
             System.out.println("try catch path" + syncPath);
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
             System.out.println("Creating new shared Var sync");
-            editor.putString("syncPath","");
+            editor.putString("syncPath", "");
         }
 
         // move path
-        try
-        {
+        try {
             String tmp = sharedPref.getString("movePath", "");
             movePath = tmp;
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
             System.out.println("Creating new shared Var move");
-            editor.putString("movePath","");
+            editor.putString("movePath", "");
         }
 
 
-        if (!syncPath.equals(""))
-        {
+        if (!syncPath.equals("")) {
             TextView path = findViewById(R.id.path);
             path.setText(syncPath);
             pathFlag = 1;
         }
-        if (!movePath.equals(""))
-        {
+        if (!movePath.equals("")) {
             TextView path = findViewById(R.id.path2);
             path.setText(movePath);
             moveFlag = 1;
@@ -180,27 +168,24 @@ public class MainActivity3 extends AppCompatActivity
 //                String INTENT_EXTRA_FILEPATH = "";
 //                intent.putExtra(INTENT_EXTRA_FILEPATH, "//com.android.externalstorage.documents/document/primary/Download");
 //                getApplicationContext().startService(intent);
-                if (pathFlag == 0)
-                {
-                    Toast.makeText(getApplicationContext(),"Please set sync path first", Toast.LENGTH_SHORT).show();
-                }
-                else if (syncPath.equals(""))
-                {
-                    Toast.makeText(getApplicationContext(),"Invalid Sync Path", Toast.LENGTH_SHORT).show();
-                }
-                else if (moveFlag == 0)
-                {
-                    Toast.makeText(getApplicationContext(),"Please set move path first", Toast.LENGTH_SHORT).show();
-                }
-                else if (movePath.equals(""))
-                {
-                    Toast.makeText(getApplicationContext(),"Invalid Move Path", Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
+                if (pathFlag == 0) {
+                    Toast.makeText(getApplicationContext(), "Please set sync path first", Toast.LENGTH_SHORT).show();
+                } else if (syncPath.equals("")) {
+                    Toast.makeText(getApplicationContext(), "Invalid Sync Path", Toast.LENGTH_SHORT).show();
+                } else if (moveFlag == 0) {
+                    Toast.makeText(getApplicationContext(), "Please set move path first", Toast.LENGTH_SHORT).show();
+                } else if (movePath.equals("")) {
+                    Toast.makeText(getApplicationContext(), "Invalid Move Path", Toast.LENGTH_SHORT).show();
+                } else {
+//                    locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+//                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+                    mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getApplicationContext());
+
+
                     Intent syncIntent = new Intent(getApplicationContext(), MediaListenerService.class);
-                    System.out.println("path while calling intent "+ syncPath);
-                    syncIntent.putExtra("pathh",syncPath);
+                    System.out.println("path while calling intent " + syncPath);
+                    getLastLocation();
+                    syncIntent.putExtra("pathh", syncPath);
                     syncIntent.putExtra("movePathhh", movePath);
                     startService(syncIntent);
                 }
@@ -223,16 +208,14 @@ public class MainActivity3 extends AppCompatActivity
             TextView path = findViewById(R.id.path);
             path.setText(finalPath);
 
-            sharedPref= getSharedPreferences("mypref", 0);
-            editor= sharedPref.edit();
+            sharedPref = getSharedPreferences("mypref", 0);
+            editor = sharedPref.edit();
             editor.putString("syncPath", finalPath);
             editor.commit();
 
             pathFlag = 1;
             syncPath = finalPath;
-        }
-
-        else if (resultCode == RESULT_OK && requestCode == RQS_MOVE_DOCUMENT_TREE) {
+        } else if (resultCode == RESULT_OK && requestCode == RQS_MOVE_DOCUMENT_TREE) {
             System.out.println("inside move path activity");
             Uri uriTree = data.getData();
             System.out.println("path?? " + uriTree + "\n" + uriTree.toString());
@@ -243,8 +226,8 @@ public class MainActivity3 extends AppCompatActivity
             TextView path = findViewById(R.id.path2);
             path.setText(finalPath);
 
-            sharedPref= getSharedPreferences("mypref", 0);
-            editor= sharedPref.edit();
+            sharedPref = getSharedPreferences("mypref", 0);
+            editor = sharedPref.edit();
             editor.putString("movePath", finalPath);
             editor.commit();
 
@@ -254,31 +237,78 @@ public class MainActivity3 extends AppCompatActivity
 
     }
 
-    private boolean checkIfAlreadyhavePermission() {
-        int result = ContextCompat.checkSelfPermission(this, Manifest.permission.GET_ACCOUNTS);
-        if (result == PackageManager.PERMISSION_GRANTED) {
-            return true;
-        } else {
-            return false;
+    private void getLastLocation()
+    {
+        // check if permissions are given
+        // getting last
+        // location from
+        // FusedLocationClient
+        // object
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            System.out.println("No permission GIVENNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNnn");
+            return;
         }
-    }
-
-    private void requestForSpecificPermission() {
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.MANAGE_EXTERNAL_STORAGE, Manifest.permission.RECEIVE_BOOT_COMPLETED}, 101);
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        switch (requestCode) {
-            case 101:
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    //granted
+        mFusedLocationClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>()
+        {
+            @Override
+            public void onComplete(@NonNull Task<Location> task)
+            {
+                Location location = task.getResult();
+                if (location == null) {
+                    requestNewLocationData();
                 } else {
-                    //not granted
+                    Toast.makeText(getApplicationContext(), location.getLatitude() + "", Toast.LENGTH_SHORT).show();
+//                    System.out.println();
+                    System.out.println(location.getLongitude() + "");
                 }
-                break;
-            default:
-                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        }
+            }
+        });
+
     }
+
+    private void requestNewLocationData()
+    {
+
+        // Initializing LocationRequest
+        // object with appropriate methods
+        LocationRequest mLocationRequest = new LocationRequest();
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        mLocationRequest.setInterval(5);
+        mLocationRequest.setFastestInterval(0);
+        mLocationRequest.setNumUpdates(1);
+
+        // setting LocationRequest
+        // on FusedLocationClient
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper());
+    }
+
+    private LocationCallback mLocationCallback = new LocationCallback() {
+
+        @Override
+        public void onLocationResult(LocationResult locationResult) {
+            Location mLastLocation = locationResult.getLastLocation();
+            Toast.makeText(getApplicationContext(), mLastLocation.getLatitude()+"", Toast.LENGTH_SHORT).show();
+            System.out.println("Latitude: " + mLastLocation.getLatitude() + "");
+            System.out.println("Longitude: " + mLastLocation.getLongitude() + "");
+        }
+    };
+
 }

@@ -58,7 +58,7 @@ class MainActivity2 : AppCompatActivity() {
                 .setMethod("POST")
                 .addFileToUpload(
                         filePath = filePath,
-                        parameterName = "myFile"
+                        parameterName = "myFileKuchBhi"
                 ).startUpload()
     }
 }
