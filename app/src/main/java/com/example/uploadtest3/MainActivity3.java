@@ -52,8 +52,8 @@ public class MainActivity3 extends AppCompatActivity
 
     //    protected LocationManager locationManager;
 //    protected LocationListener locationListener;
-    protected String latitude, longitude;
-    protected boolean gps_enabled, network_enabled;
+//    protected String latitude, longitude;
+//    protected boolean gps_enabled, network_enabled;
 
     public String syncPath = "";
     //    public String syncPath = sharedPref.getString("syncPath", "");
@@ -184,7 +184,7 @@ public class MainActivity3 extends AppCompatActivity
 
                     Intent syncIntent = new Intent(getApplicationContext(), MediaListenerService.class);
                     System.out.println("path while calling intent " + syncPath);
-                    getLastLocation();
+//                    getLastLocation();
                     syncIntent.putExtra("pathh", syncPath);
                     syncIntent.putExtra("movePathhh", movePath);
                     startService(syncIntent);
