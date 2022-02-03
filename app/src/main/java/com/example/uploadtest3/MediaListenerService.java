@@ -48,7 +48,16 @@ import net.gotev.uploadservice.protocols.multipart.MultipartUploadRequest;
 public class MediaListenerService extends Service {
 
     public static FileObserver observer;
+
+    // network coords
     FusedLocationProviderClient mFusedLocationClient;
+
+    // gps stuff
+    GPSTracker gps;
+
+
+
+
     //    public static String syncPath = "";
     String lati = "19.045959";
     String longi = "72.890080";
@@ -118,47 +127,77 @@ public class MediaListenerService extends Service {
                         }
                     });
                 } 
-                else if (event == FileObserver.CLOSE_WRITE && !file.equals(".probe")) { // check that it's not equal to .probe because thats created every time camera is launched
+                else if (event == FileObserver.CLOSE_WRITE && !file.equals(".probe")) {
+                    // check that it's not equal to .probe because thats created every time camera is launched
                     //                    Log.d("MediaListenerService", "File created [" + pathToWatch + file + "]");
-                    mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getApplicationContext());
-                    //                    getLastLocation(); // [lati,longi]
-                    //                    requestNewLocationData();
-                    if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                        // TODO: Consider calling
-                        //    ActivityCompat#requestPermissions
-                        // here to request the missing permissions, and then overriding
-                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                        //                  int[] grantResults)
-                        // to handle the case where the user grants the permission. See the documentation
-                        // for ActivityCompat#requestPermissions for more details.
-                        return;
-                    }
-                    //                    Task<Location> location2 = mFusedLocationClient.getLastLocation();
-                    //                    Location location = location2.getResult();
 
-                    mFusedLocationClient.getLastLocation().addOnCompleteListener(new OnCompleteListener < Location > () {
+
+
+                    new Handler(Looper.getMainLooper()).post(new Runnable()
+                    {
                         @Override
-                        public void onComplete(@NonNull Task < Location > task) {
-                            Location location = task.getResult();
-                            if (location == null) {
-                                System.out.println("Pehla walla nahi chala toh 245");
-                                requestNewLocationData();
+                        public void run()
+                        {
+                            gps = new GPSTracker(MediaListenerService.this);
+                            if (gps.canGetLocation()) {
+
+                                lati = gps.getLatitude() + "";
+                                longi = gps.getLongitude() + "";
+
+                                // \n is for new line
+//                        Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + lati + "\nLong: " + longi, Toast.LENGTH_LONG).show();
+                                System.out.println("Randi found," + lati + longi);
                             } else {
-                                lati = location.getLatitude() + "";
-                                longi = location.getLongitude() + "";
-                                System.out.println("RANDI lati longi set 256 " + lati + "_" + longi);
+                                System.out.println("Randi no gps data found using network provider");
+                                mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getApplicationContext());
+                                //                    getLastLocation(); // [lati,longi]
+                                //                    requestNewLocationData();
+                                if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                                    // TODO: Consider calling
+                                    //    ActivityCompat#requestPermissions
+                                    // here to request the missing permissions, and then overriding
+                                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                                    //                  int[] grantResults)
+                                    // to handle the case where the user grants the permission. See the documentation
+                                    // for ActivityCompat#requestPermissions for more details.
+                                    return;
+                                }
+                                //                    Task<Location> location2 = mFusedLocationClient.getLastLocation();
+                                //                    Location location = location2.getResult();
 
-                                //                    Toast.makeText(getApplicationContext(), location.getLatitude() + "", Toast.LENGTH_SHORT).show();
-                                ////                    System.out.println();
-                                //                    System.out.println( + "");
+                                mFusedLocationClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>()
+                                {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Location> task)
+                                    {
+                                        Location location = task.getResult();
+                                        if (location == null) {
+                                            System.out.println("Pehla walla nahi chala toh 245");
+                                            requestNewLocationData();
+                                        } else {
+                                            lati = location.getLatitude() + "";
+                                            longi = location.getLongitude() + "";
+                                            System.out.println("RANDI lati longi set 256 " + lati + "_" + longi);
+
+                                            //                    Toast.makeText(getApplicationContext(), location.getLatitude() + "", Toast.LENGTH_SHORT).show();
+                                            ////                    System.out.println();
+                                            //                    System.out.println( + "");
+                                        }
+
+                                        //                    System.out.println("RANDI MC location "+ location);
+
+                                        System.out.println("RANDI BEFORE CALL of upload thread 127");
+                                    }
+                                });
                             }
+                        }
+                    });
 
-                            //                    System.out.println("RANDI MC location "+ location);
-
-                            System.out.println("RANDI BEFORE CALL of upload thread 127");
-                            new Handler(Looper.getMainLooper()).post(new Runnable() {
+                            new Handler(Looper.getMainLooper()).post(new Runnable()
+                            {
                                 @Override
-                                public void run() {
+                                public void run()
+                                {
                                     // LOCATIONNNNNNNNNNN
                                     //    List<String> latilongi;
                                     //    mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getApplicationContext());
@@ -168,7 +207,7 @@ public class MediaListenerService extends Service {
                                     //    Toast.makeText(getBaseContext(), file + " was saved!", Toast.LENGTH_LONG).show();
                                     System.out.println("randiMain" + file + " " + event + " " + FileObserver.CREATE + "Close write");
 
-                                    MultipartUploadRequest mu = new MultipartUploadRequest(getApplicationContext(),"http://103.197.221.163:3478/upload/multipart");
+                                    MultipartUploadRequest mu = new MultipartUploadRequest(getApplicationContext(), "http://103.197.221.163:3478/upload/multipart");
 //                                    MultipartUploadRequest mu = new MultipartUploadRequest(getApplicationContext(), "https://enaiug4935taq.x.pipedream.net");
                                     mu.setMethod("POST");
                                     mu.setAutoDeleteFilesAfterSuccessfulUpload(true);
@@ -211,11 +250,11 @@ public class MediaListenerService extends Service {
                                         byte[] buf = new byte[1024];
                                         int len;
 
-                                        while ((len = in .read(buf)) > 0) {
+                                        while ((len = in.read(buf)) > 0) {
                                             out.write(buf, 0, len);
                                         }
 
-                                        in .close();
+                                        in.close();
                                         out.close();
                                     } catch (Exception e) {
                                         e.printStackTrace();
@@ -231,9 +270,8 @@ public class MediaListenerService extends Service {
                                     //    MultipartUploadRequest((MultipartUploadRequest)(new MultipartUploadRequest(getApplicationContext(), "http://103.197.221.163:3478/upload/multipart")).setMethod("POST"), filePath, "myFile", (String)null, (String)null, 12, (Object)null).startUpload();
                                 }
                             });
-                        }
-                    });
-                } else {
+                }
+                else {
                     Log.d("FILEOBSERVER_EVENT", "Event with id " + Integer.toHexString(event) + " happened"); // event identifies the occured Event in hex
                 }
             }

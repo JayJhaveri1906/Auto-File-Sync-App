@@ -170,7 +170,7 @@ public class MainActivity extends AppCompatActivity
             builder1.setCancelable(false);
 
             builder1.setPositiveButton(
-                    "Yes location",
+                    "Yes location!!",
                     new DialogInterface.OnClickListener()
                     {
                         public void onClick(DialogInterface dialog, int id)
@@ -180,12 +180,12 @@ public class MainActivity extends AppCompatActivity
                     });
 
             builder1.setNegativeButton(
-                    "cancel bc",
+                    "Cancel :_(",
                     new DialogInterface.OnClickListener()
                     {
                         public void onClick(DialogInterface dialog, int id)
                         {
-                            Toast.makeText(getApplicationContext(), "No mate u can't cancel :)", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "No mate u can't cancel ;)", Toast.LENGTH_SHORT).show();
                             rerunLocationBox();
                         }
                     });
