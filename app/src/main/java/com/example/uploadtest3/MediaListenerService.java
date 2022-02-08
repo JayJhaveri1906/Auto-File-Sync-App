@@ -12,6 +12,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -42,6 +43,7 @@ import android.location.LocationManager;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import net.gotev.uploadservice.protocols.multipart.MultipartUploadRequest;
 
@@ -56,11 +58,16 @@ public class MediaListenerService extends Service {
     GPSTracker gps;
 
 
+    // to stop it ffs
+    private boolean isRunning  = false;
 
 
     //    public static String syncPath = "";
     String lati = "19.045959";
     String longi = "72.890080";
+
+    // broadcast stuff
+    LocalBroadcastManager broadcaster;
 
     public MediaListenerService() {}
 
@@ -91,11 +98,15 @@ public class MediaListenerService extends Service {
     @Override
     public void onCreate() {
         System.out.println("in onCreate");
+        broadcaster = LocalBroadcastManager.getInstance(this);
+        isRunning = true;
         super.onCreate();
         //        startWatching(syncPath);
     }
 
     private void startWatching(String pathToWatch2, String pathToMove2) {
+//
+//        TextView path = findViewById(R.id.path2);
 
         //The desired path to watch or monitor
         //E.g Camera folder
@@ -207,6 +218,10 @@ public class MediaListenerService extends Service {
                                     //    Toast.makeText(getBaseContext(), file + " was saved!", Toast.LENGTH_LONG).show();
                                     System.out.println("randiMain" + file + " " + event + " " + FileObserver.CREATE + "Close write");
 
+
+
+
+
                                     MultipartUploadRequest mu = new MultipartUploadRequest(getApplicationContext(), "http://103.197.221.163:3478/upload/multipart");
 //                                    MultipartUploadRequest mu = new MultipartUploadRequest(getApplicationContext(), "https://enaiug4935taq.x.pipedream.net");
                                     mu.setMethod("POST");
@@ -234,6 +249,13 @@ public class MediaListenerService extends Service {
                                     String tmpTime = currentDate + "__" + currentTime + "__";
                                     File targetFile = new File(pathToMove + "/" + tmpTime + file);
 
+
+                                    // BROADCASTing
+                                    int file_size = Integer.parseInt(String.valueOf(sourceFile.length()/1024));
+                                    sendResult(file, currentDate, currentTime, file_size);
+
+
+                                    // Moving process
                                     try {
                                         //        if (sourceFile.renameTo(targetFile))
                                         //        {
@@ -276,7 +298,10 @@ public class MediaListenerService extends Service {
                 }
             }
         };
-        observer.startWatching();
+        if (isRunning == true)
+            observer.startWatching();
+        else
+            System.out.println("Stoppingggg");
     }
 
 
@@ -371,4 +396,21 @@ public class MediaListenerService extends Service {
     };
 
 
+
+    public void sendResult(String fname, String date, String time, int size) {
+        Intent intent = new Intent("returnFromMediaService");
+        if(fname != null)
+        {
+            intent.putExtra("fname", fname);
+            intent.putExtra("date", date);
+            intent.putExtra("time", time);
+            intent.putExtra("size", size);
+        }
+        broadcaster.sendBroadcast(intent);
+    }
+
+    public void onDestroy() {
+        isRunning = false;
+        Toast.makeText(this, "MyService Completed or Stopped.", Toast.LENGTH_SHORT).show();
+    }
 }

@@ -4,18 +4,23 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.Settings;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -40,6 +45,10 @@ import android.location.LocationManager;
 public class MainActivity3 extends AppCompatActivity
 {
 
+    // Broadcast stuff
+    BroadcastReceiver receiver;
+
+
     FusedLocationProviderClient mFusedLocationClient;
 
     Button browse;
@@ -48,6 +57,10 @@ public class MainActivity3 extends AppCompatActivity
 
     private static final int RQS_OPEN_DOCUMENT_TREE = 45;
     private static final int RQS_MOVE_DOCUMENT_TREE = 69;
+
+//    // BUTTONS
+//    Button browseDir;
+    String syncStatus = "false";
 
 
     //    protected LocationManager locationManager;
@@ -62,11 +75,48 @@ public class MainActivity3 extends AppCompatActivity
     public String movePath = "";
     public static int moveFlag = 0;
 
+    public int Gsize = 0;
+    public int Countt = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main4);
+        syncStatus = "false";
+
+        // Receive broadcast
+        // do something here.
+        receiver = new BroadcastReceiver()
+        {
+            @Override
+            public void onReceive(Context context, Intent intent)
+            {
+                String fname = intent.getStringExtra("fname");
+                String date = intent.getStringExtra("date");
+                String time = intent.getStringExtra("time");
+                int size = intent.getIntExtra("size",0);
+                System.out.println("Randiiii in main activity"+fname+date+time+size);
+
+                Countt++;
+                Gsize+=size;
+
+                TextView tmp = findViewById(R.id.textView13);
+                tmp.setText(Countt+" Files");
+
+                tmp = findViewById(R.id.textView14);
+                tmp.setText(Gsize + " KB");
+
+                tmp = findViewById(R.id.scrollText);
+                String logss = tmp.getText() + "";
+                String toPrint = logss + "\n" + fname + " " + date + " " + time + " " + size + " KB";
+                tmp.setText(toPrint);
+
+
+                // do something here.
+            }
+        };
+
 
 
         // Main Pgm
@@ -120,6 +170,9 @@ public class MainActivity3 extends AppCompatActivity
 //            }
 //        });
 
+        TextView scrolll = findViewById(R.id.scrollText);
+        scrolll.setMovementMethod(new ScrollingMovementMethod());
+
         Button browseDirPath = findViewById(R.id.browseDirPath);
         browseDirPath.setOnClickListener(new View.OnClickListener()
         {
@@ -168,29 +221,53 @@ public class MainActivity3 extends AppCompatActivity
 //                String INTENT_EXTRA_FILEPATH = "";
 //                intent.putExtra(INTENT_EXTRA_FILEPATH, "//com.android.externalstorage.documents/document/primary/Download");
 //                getApplicationContext().startService(intent);
-                if (pathFlag == 0) {
-                    Toast.makeText(getApplicationContext(), "Please set sync path first", Toast.LENGTH_SHORT).show();
-                } else if (syncPath.equals("")) {
-                    Toast.makeText(getApplicationContext(), "Invalid Sync Path", Toast.LENGTH_SHORT).show();
-                } else if (moveFlag == 0) {
-                    Toast.makeText(getApplicationContext(), "Please set move path first", Toast.LENGTH_SHORT).show();
-                } else if (movePath.equals("")) {
-                    Toast.makeText(getApplicationContext(), "Invalid Move Path", Toast.LENGTH_SHORT).show();
-                } else {
-//                    locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-//                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-                    mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getApplicationContext());
+                Intent syncIntent = new Intent(getApplicationContext(), MediaListenerService.class);
+                if (syncStatus == "false") {
+                    if (pathFlag == 0) {
+                        Toast.makeText(getApplicationContext(), "Please set sync path first", Toast.LENGTH_SHORT).show();
+                    } else if (syncPath.equals("")) {
+                        Toast.makeText(getApplicationContext(), "Invalid Sync Path", Toast.LENGTH_SHORT).show();
+                    } else if (moveFlag == 0) {
+                        Toast.makeText(getApplicationContext(), "Please set move path first", Toast.LENGTH_SHORT).show();
+                    } else if (movePath.equals("")) {
+                        Toast.makeText(getApplicationContext(), "Invalid Move Path", Toast.LENGTH_SHORT).show();
+                    } else {
+                        //                    locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+                        //                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+                        browseDir.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.stop_sync));
+                        browseDir.setText("Stop Sync");
+                        syncStatus="true";
+
+                        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getApplicationContext());
 
 
-                    Intent syncIntent = new Intent(getApplicationContext(), MediaListenerService.class);
-                    System.out.println("path while calling intent " + syncPath);
-//                    getLastLocation();
-                    syncIntent.putExtra("pathh", syncPath);
-                    syncIntent.putExtra("movePathhh", movePath);
-                    startService(syncIntent);
+//                        Intent syncIntent = new Intent(getApplicationContext(), MediaListenerService.class);
+                        System.out.println("path while calling intent " + syncPath);
+                        //                    getLastLocation();
+                        syncIntent.putExtra("pathh", syncPath);
+                        syncIntent.putExtra("movePathhh", movePath);
+                        startService(syncIntent);
+                    }
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(), "Sync Service stopped", Toast.LENGTH_SHORT).show();
+
+                    browseDir.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.start_sync));
+                    browseDir.setText("Start Sync");
+                    syncStatus="false";
+                    stopService(syncIntent);
+//                    onBackPressed();
                 }
             }
         });
+
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
     }
 
     @Override
@@ -311,4 +388,14 @@ public class MainActivity3 extends AppCompatActivity
         }
     };
 
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        LocalBroadcastManager.getInstance(this).registerReceiver((receiver),
+                new IntentFilter("returnFromMediaService")
+        );
+    }
+
 }
+

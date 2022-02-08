@@ -5,7 +5,46 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/gradient_bg"
+    android:overScrollMode="ifContentScrolls"
     tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:text="0 KB"
+        app:layout_constraintStart_toEndOf="@+id/textView12"
+        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="423dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="-20dp"
+        android:layout_marginLeft="-10dp"
+        android:overScrollMode="never"
+        android:text="________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteX="1dp" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="428dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="-10dp"
+        android:layout_marginLeft="-10dp"
+        android:overScrollMode="never"
+        android:text="____________________________________________________"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/path2"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteX="1dp" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -29,26 +68,63 @@
         android:id="@+id/browseDir"
         android:layout_width="240dp"
         android:layout_height="50dp"
-        android:layout_marginStart="142dp"
-        android:layout_marginTop="35dp"
-        android:layout_marginEnd="143dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/start_sync"
         android:text="Start Sync"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/path2" />
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/path"
-        android:layout_width="239dp"
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/browseDirPath2"
+        android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_marginStart="25dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/shape2"
+        android:text="Browse2"
+        android:textColor="#000"
+        app:layout_constraintStart_toEndOf="@+id/path2"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="-10dp"
+        android:text="Select a Backup Directory"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+    <TextView
+        android:id="@+id/path2"
+        android:layout_width="240dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/text_box_border"
-        android:text="Select a Path for Syncing"
+
         android:gravity="center"
+        android:text="Select a Path for Moving"
         android:textColor="@color/black"
         android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:text="Select Directory to be monitored"
+        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
@@ -56,40 +132,91 @@
         android:id="@+id/browseDirPath"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/shape2"
         android:text="Browse"
         android:textColor="#000"
         app:layout_constraintStart_toEndOf="@+id/path"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
     <TextView
-        android:id="@+id/path2"
-        android:layout_width="240dp"
+        android:id="@+id/path"
+        android:layout_width="239dp"
         android:layout_height="50dp"
         android:layout_marginStart="25dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/text_box_border"
-        android:text="Select a Path for Moving"
         android:gravity="center"
-
+        android:text="Select a Path for Syncing"
         android:textColor="@color/black"
         android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/path" />
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/browseDirPath2"
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="423dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="-10dp"
+        android:layout_marginLeft="-10dp"
+        android:overScrollMode="never"
+        android:text="____________________________________________________"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/path"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteX="1dp" />
+
+    <TextView
+        android:id="@+id/textView11"
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="25dp"
-        android:background="@drawable/shape2"
-        android:textColor="#000"
-        android:text="Browse"
-        app:layout_constraintStart_toEndOf="@+id/path2"
-        app:layout_constraintTop_toBottomOf="@+id/browseDirPath" />
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="5dp"
+        android:text="Total Files Synced:"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="5dp"
+        android:text="Total Size Sent:"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/textView13"
+        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:text="0 Files"
+
+        app:layout_constraintStart_toEndOf="@+id/textView11"
+        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+    <TextView
+        android:id="@+id/scrollText"
+        android:layout_width="350dp"
+        android:layout_height="96dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:text="Logs of files sent will be maintained here"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView11"
+        android:scrollbars = "vertical"
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

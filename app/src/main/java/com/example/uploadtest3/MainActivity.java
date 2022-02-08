@@ -39,6 +39,8 @@ public class MainActivity extends AppCompatActivity
     Button credits;
     private static final int MNG_CODE = 501;
 
+    GPSTracker gps;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -84,6 +86,10 @@ public class MainActivity extends AppCompatActivity
 //            askForPermission(Manifest.permission.RECEIVE_BOOT_COMPLETED, 1);
 //        }
 
+        gps = new GPSTracker(MainActivity.this);
+        if (!gps.canGetLocation()) {
+            gps.showSettingsAlert();
+        }
 
 
 

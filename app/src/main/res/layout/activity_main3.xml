@@ -43,7 +43,7 @@ tools:context=".MainActivity4">
     <TextView
         android:id="@+id/textView2"
         android:layout_width="170dp"
-        android:layout_height="250dp"
+        android:layout_height="270dp"
         android:layout_gravity="center"
         android:layout_marginStart="25dp"
         android:layout_marginTop="20dp"
@@ -73,7 +73,7 @@ tools:context=".MainActivity4">
     <TextView
         android:id="@+id/textView4"
         android:layout_width="170dp"
-        android:layout_height="250dp"
+        android:layout_height="270dp"
         android:layout_gravity="center"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"

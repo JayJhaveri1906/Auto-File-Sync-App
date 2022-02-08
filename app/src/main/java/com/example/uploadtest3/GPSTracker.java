@@ -174,6 +174,7 @@ public class GPSTracker extends Service implements LocationListener
      * On pressing the Settings button it will launch Settings Options.
      * */
     public void showSettingsAlert(){
+        boolean tmpLocPerm = this.canGetLocation;
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
 
         // Setting Dialog Title
@@ -181,6 +182,9 @@ public class GPSTracker extends Service implements LocationListener
 
         // Setting Dialog Message
         alertDialog.setMessage("GPS is not enabled. Do you want to go to settings menu?");
+
+        alertDialog.setCancelable(false);
+
 
         // On pressing the Settings button.
         alertDialog.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
@@ -193,7 +197,15 @@ public class GPSTracker extends Service implements LocationListener
         // On pressing the cancel button
         alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
+//                dialog.cancel();
+                if (!tmpLocPerm)
+                {
+                    showSettingsAlert();
+                }
+                else
+                {
+                    dialog.cancel();
+                }
             }
         });
 
