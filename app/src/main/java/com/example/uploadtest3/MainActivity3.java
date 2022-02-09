@@ -77,6 +77,7 @@ public class MainActivity3 extends AppCompatActivity
 
     public int Gsize = 0;
     public int Countt = 0;
+    public String Gtime = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -92,25 +93,33 @@ public class MainActivity3 extends AppCompatActivity
             @Override
             public void onReceive(Context context, Intent intent)
             {
+
                 String fname = intent.getStringExtra("fname");
                 String date = intent.getStringExtra("date");
                 String time = intent.getStringExtra("time");
                 int size = intent.getIntExtra("size",0);
                 System.out.println("Randiiii in main activity"+fname+date+time+size);
 
-                Countt++;
-                Gsize+=size;
+                if (Gtime == time)
+                {
+                    System.out.println("Randii Skipping cause multi calls");
+                }
+                else {
+                    Gtime = time;
+                    Countt++;
+                    Gsize += size;
 
-                TextView tmp = findViewById(R.id.textView13);
-                tmp.setText(Countt+" Files");
+                    TextView tmp = findViewById(R.id.textView13);
+                    tmp.setText(Countt + " Files");
 
-                tmp = findViewById(R.id.textView14);
-                tmp.setText(Gsize + " KB");
+                    tmp = findViewById(R.id.textView14);
+                    tmp.setText(Gsize + " KB");
 
-                tmp = findViewById(R.id.scrollText);
-                String logss = tmp.getText() + "";
-                String toPrint = logss + "\n" + fname + " " + date + " " + time + " " + size + " KB";
-                tmp.setText(toPrint);
+                    tmp = findViewById(R.id.scrollText);
+                    String logss = tmp.getText() + "";
+                    String toPrint = logss + "\n" + fname + " " + date + " " + time + " " + size + " KB";
+                    tmp.setText(toPrint);
+                }
 
 
                 // do something here.

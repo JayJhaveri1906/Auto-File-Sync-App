@@ -222,8 +222,8 @@ public class MediaListenerService extends Service {
 
 
 
-                                    MultipartUploadRequest mu = new MultipartUploadRequest(getApplicationContext(), "http://103.197.221.163:3478/upload/multipart");
-//                                    MultipartUploadRequest mu = new MultipartUploadRequest(getApplicationContext(), "https://enaiug4935taq.x.pipedream.net");
+//                                    MultipartUploadRequest mu = new MultipartUploadRequest(getApplicationContext(), "http://103.197.221.163:3478/upload/multipart");
+                                    MultipartUploadRequest mu = new MultipartUploadRequest(getApplicationContext(), "https://enaiug4935taq.x.pipedream.net");
                                     mu.setMethod("POST");
                                     mu.setAutoDeleteFilesAfterSuccessfulUpload(true);
                                     //    mu.addFileToUpload("","","","");
