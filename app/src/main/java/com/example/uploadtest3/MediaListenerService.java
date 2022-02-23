@@ -69,6 +69,9 @@ public class MediaListenerService extends Service {
     // broadcast stuff
     LocalBroadcastManager broadcaster;
 
+
+    String serverUrl = "";
+
     public MediaListenerService() {}
 
     @Override
@@ -83,6 +86,7 @@ public class MediaListenerService extends Service {
             Log.d("Service", "not null");
             syncPath = (String) extras.get("pathh");
             movePath = (String) extras.get("movePathhh");
+            serverUrl = (String) extras.get("serverUrl");
             startWatching(syncPath, movePath);
         }
         return Service.START_NOT_STICKY;
@@ -115,7 +119,7 @@ public class MediaListenerService extends Service {
         final String pathToWatch = android.os.Environment.getExternalStorageDirectory().toString() + "/" + pathToWatch2;
         final String pathToMove = android.os.Environment.getExternalStorageDirectory().toString() + "/" + pathToMove2;
         System.out.println("pathhhhhh: " + pathToWatch);
-        Toast.makeText(this, "Now watching for new files at " + pathToWatch, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Now watching for new files at " + pathToWatch + "\n SERVER SELECTED: "+serverUrl, Toast.LENGTH_LONG).show();
 
         observer = new FileObserver(pathToWatch, FileObserver.ALL_EVENTS) { // set up a file observer to watch this directory
             @Override
@@ -221,9 +225,9 @@ public class MediaListenerService extends Service {
 
 
 
-
+                                    MultipartUploadRequest mu = new MultipartUploadRequest(getApplicationContext(), serverUrl);
 //                                    MultipartUploadRequest mu = new MultipartUploadRequest(getApplicationContext(), "http://103.197.221.163:3478/upload/multipart");
-                                    MultipartUploadRequest mu = new MultipartUploadRequest(getApplicationContext(), "https://enaiug4935taq.x.pipedream.net");
+//                                    MultipartUploadRequest mu = new MultipartUploadRequest(getApplicationContext(), "https://enaiug4935taq.x.pipedream.net");
                                     mu.setMethod("POST");
                                     mu.setAutoDeleteFilesAfterSuccessfulUpload(true);
                                     //    mu.addFileToUpload("","","","");

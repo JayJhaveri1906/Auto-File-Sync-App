@@ -12,8 +12,8 @@
         android:id="@+id/browse"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="60dp"
         android:background="@drawable/shape2"
         android:text="Browse"
         app:layout_constraintStart_toEndOf="@+id/textView"
@@ -39,14 +39,53 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="200dp"
+        android:layout_width="239dp"
         android:layout_height="50dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="60dp"
         android:background="@drawable/text_box_border"
         android:gravity="center"
         android:text="Choose a file"
-        android:textSize="28sp"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+
+
+    <ImageView
+        android:id="@+id/infoButtonImg"
+        android:layout_width="47dp"
+        android:layout_height="47dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_info_details" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/sync"
+        android:layout_width="240dp"
+        android:layout_height="50dp"
+
+
+        android:layout_marginBottom="190dp"
+        android:background="@drawable/start_sync"
+        android:text="Start Upload"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:text="Select a file to be uploaded"
+        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 

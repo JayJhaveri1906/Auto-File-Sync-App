@@ -211,12 +211,18 @@
         android:layout_width="350dp"
         android:layout_height="96dp"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="5dp"
+        android:scrollbars="vertical"
         android:text="Logs of files sent will be maintained here"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView11"
-        android:scrollbars = "vertical"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+    <ImageView
+        android:id="@+id/infoButtonImg"
+        android:layout_width="47dp"
+        android:layout_height="47dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_info_details" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

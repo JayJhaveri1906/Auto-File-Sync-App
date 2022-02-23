@@ -1,6 +1,7 @@
 package com.example.uploadtest3;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -21,8 +22,10 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.Settings;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 //import android.location.Location;
@@ -50,6 +53,8 @@ public class MainActivity3 extends AppCompatActivity
 
 
     FusedLocationProviderClient mFusedLocationClient;
+
+    ImageView infoo;
 
     Button browse;
     SharedPreferences sharedPref;
@@ -79,12 +84,27 @@ public class MainActivity3 extends AppCompatActivity
     public int Countt = 0;
     public String Gtime = "";
 
+    String serverUrl = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main4);
+
+        // receiving which server to send
+        Bundle extras = getIntent().getExtras();
+        if (extras == null) {
+            Log.d("Service", "null");
+        } else {
+            Log.d("Service", "not null");
+            serverUrl = (String) extras.get("serverUrl");
+            System.out.println("RANDI received server url "+serverUrl);
+        }
+
+
         syncStatus = "false";
+
 
         // Receive broadcast
         // do something here.
@@ -179,6 +199,39 @@ public class MainActivity3 extends AppCompatActivity
 //            }
 //        });
 
+        infoo = findViewById(R.id.infoButtonImg);
+        infoo.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view)
+            {
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(MainActivity3.this);
+                builder1.setTitle("File Auto-Sync");
+
+                String msgg = "To use this feature follow the following steps:\n" +
+                        "\n" +
+                        "1. STEP 1:- Select  a directory to be monitored :  In this option u have to select a diretory which has to be polled to watch new files coming to the directory so as to send the same to the selected server in the previous step.\n" +
+                        "\n" +
+                        "2. STEP 2:- Select a backup directory : In this option you have to select a directory which will be used as a backup directory in which files will be moved from previous directory once the file is succesfully uploaded to the server.\n" +
+                        "\n" +
+                        "3. STEP 3:- Start Sync : This option is used to start the whole process of watching a particular directory and then send the files to the server.\n";
+
+                builder1.setMessage(msgg);
+
+                builder1.setCancelable(true);
+
+                builder1.setNeutralButton(
+                        "Ok",
+                        null
+                );
+
+
+                AlertDialog alert11 = builder1.create();
+                alert11.show();
+            }
+        });
+
+
+
         TextView scrolll = findViewById(R.id.scrollText);
         scrolll.setMovementMethod(new ScrollingMovementMethod());
 
@@ -255,6 +308,7 @@ public class MainActivity3 extends AppCompatActivity
                         //                    getLastLocation();
                         syncIntent.putExtra("pathh", syncPath);
                         syncIntent.putExtra("movePathhh", movePath);
+                        syncIntent.putExtra("serverUrl", serverUrl);
                         startService(syncIntent);
                     }
                 }
