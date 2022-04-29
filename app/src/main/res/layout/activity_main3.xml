@@ -9,22 +9,22 @@ tools:context=".MainActivity4">
 
 
     <ImageView
-    android:id="@+id/imageView"
-    android:layout_width="409dp"
-    android:layout_height="291dp"
-    android:layout_marginStart="51dp"
-    android:layout_marginTop="32dp"
-    android:layout_marginEnd="51dp"
-    android:layout_marginBottom="489dp"
-    android:contentDescription="image view"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHeight_percent=".5"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintVertical_bias="0.52"
-    app:layout_constraintWidth_percent=".5"
-    app:srcCompat="@drawable/final_logo" />
+        android:id="@+id/imageView"
+        android:layout_width="409dp"
+        android:layout_height="291dp"
+        android:layout_marginStart="51dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="51dp"
+        android:layout_marginBottom="489dp"
+        android:contentDescription="image view"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent=".5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.444"
+        app:layout_constraintWidth_percent=".5"
+        app:srcCompat="@drawable/final_logo" />
 
     <TextView
         android:id="@+id/textView1"

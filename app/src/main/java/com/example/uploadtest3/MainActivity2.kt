@@ -74,7 +74,7 @@ class MainActivity2 : AppCompatActivity() {
             {
                 onFilePicked(gFilePath)
                 gFilePath = ""
-                textView?.text = "Choose a file"
+                textView?.text = "No File Selected"
                 Toast.makeText(this,"Started File Upload",Toast.LENGTH_SHORT).show()
             }
             println("Randi in sync button $gFilePath")

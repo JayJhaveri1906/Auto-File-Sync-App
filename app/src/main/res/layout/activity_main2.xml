@@ -45,7 +45,7 @@
         android:layout_marginTop="60dp"
         android:background="@drawable/text_box_border"
         android:gravity="center"
-        android:text="Choose a file"
+        android:text="No File Selected"
         android:textSize="20sp"
         android:textColor="@color/black"
         android:textStyle="bold"

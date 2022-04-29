@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity
     Button file;
     Button credits;
     private Spinner spinner;
-    private static final String[] paths = {"VESIT", "TIFR"};
+    private static final String[] paths = {"VESIT", "TIFR", "Temp"};
     String serverUrl = "http://103.197.221.163:3478/upload/multipart";
     private static final int MNG_CODE = 501;
 
@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity
                 String msgg =
                         "Before proceeding towards the features first check that you have provided the app with all the required permissions:\n" +
                         "\n" +
-                        "1. File Permissions : TO access new files coming into the directory\n" +
+                        "1. File Permissions : To access new files coming into the directory\n" +
                         "2. Location Permissions : To send your current location along with the file to track the sending of file.\n" +
                         "\n" +
                         "\n" +
@@ -130,7 +130,9 @@ public class MainActivity extends AppCompatActivity
                         "\n\t\t\t\tEverytime a new file is added to that directory ,file is automatically sent to the server selected and once the files get uploaded to the server it will show you a notification and will get moved in a backup directory.\n" +
                         "\n" +
                         "\n" +
-                        "2. Upload single file : This feature is used to send a single file directly to the server . Once the files gets uploaded it will show a notification about the progress of the file sending.";
+                        "2. Upload single file : This feature is used to send a single file directly to the server . Once the files gets uploaded it will show a notification about the progress of the file sending." +
+						"\n" +
+						"Before selecting one of the above mentioned feature: you first need to select a server from the drop down menu. This server will be used as the target server where your files will be uploaded at.";
 
                 builder1.setMessage(msgg);
 
@@ -210,8 +212,13 @@ public class MainActivity extends AppCompatActivity
                         // Whatever you want to happen when the first item gets selected
                         break;
                     case 1:
-                        serverUrl = "https://enaiug4935taq.x.pipedream.net";
+                        serverUrl = "http://158.144.55.73:3478/upload/multipart";
                         Toast.makeText(getApplicationContext(), "Using TIFR server" + "", Toast.LENGTH_SHORT).show();
+                        // Whatever you want to happen when the second item gets selected
+                        break;
+                    case 2:
+                        serverUrl = "https://enaiug4935taq.x.pipedream.net";
+                        Toast.makeText(getApplicationContext(), "Using TEMP server" + "", Toast.LENGTH_SHORT).show();
                         // Whatever you want to happen when the second item gets selected
                         break;
                     default:
