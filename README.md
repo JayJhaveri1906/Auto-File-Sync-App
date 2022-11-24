@@ -1,8 +1,8 @@
 # Aatmanirbhar Samakraman
 This project is a real-world application based on the technologies learned while implementing Aatmanirbhar Sanchar mixed with newer technologies.
 
-Tata Institute of Fundamental Research gave my team the Problem Statement: \
-&nbsp;&nbsp;&nbsp; Imagine a radiation engineer wearing protective equipment handling a radiation detection device in a remote place. This radiation equipment constantly measures the radiation readings and then stores these logs/files on the radiation engineer's android phone. Our task is to automate the process of backing up these files securely into a cloud server as soon as possible and store the backup for reference locally. In other words, We should constantly monitor a selected storage directory, queue up any files entering that directory for upload, and then back it up in a different directory.
+### Tata Institute of Fundamental Research gave my team the Problem Statement: \
+Imagine a radiation engineer wearing protective equipment handling a radiation detection device in a remote place. This radiation equipment constantly measures the radiation readings and then stores these logs/files on the radiation engineer's android phone. Our task is to automate the process of backing up these files securely into a cloud server as soon as possible and store the backup for reference locally. In other words, We should constantly monitor a selected storage directory, queue up any files entering that directory for upload, and then back it up in a different directory.
 
 
 Further, we improved upon this PS by introducing real time tracking of the uploaded files, and inturn the engineer on to a website. While queuing up the files for upload, the gps location of the phone and the internet location (Which ever is available) is also stored and uploaded.
