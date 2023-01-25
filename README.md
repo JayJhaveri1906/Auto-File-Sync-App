@@ -15,7 +15,7 @@ Rest of the server is managed by our second sister code base developed in python
 ---
 
 For a very detailed documentation/ Cookbook of the project, please refer to the following word document:
-[Detailed Cookbook and implementation steps](https://drive.google.com/file/d/1m3vflqOb0wFFrnm7pV5ADmuBpgtcqTOz/view?usp=share_link)
+[Detailed Cookbook and implementation steps](https://docs.google.com/document/d/1fSwpv6ZCRhyami0U6lCNLExHZtTIIsLdNf6ZaCJpGYY/edit?mode=html)
 
 Summarized video:\
 <a href="https://youtu.be/CyNPfndji-U?t=290
